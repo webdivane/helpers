@@ -38,7 +38,7 @@ Contain following methods:
 
 	Returns the regitered helpers as array, ready for in `spl_autoload_register()` use:
 
-		```
+		
 
 		spl_autoload_register(function ($class) {
 		    
@@ -62,7 +62,7 @@ Contain following methods:
 		
 		RegisterClass("helper");
 		$helperAlrMap=(array)helper::AutoLoadRegisteredList();
-		```
+		
 
 * **Prepare** `helper::prepare();`
 	
@@ -80,7 +80,6 @@ Contain following methods:
 
 ---
 [
-![php]([repo-files]/php-logo.svg "Powered by")
+![php]("[repo-files]/php-logo.svg" "Powered by")
 ](http://php.net/)
 
----
