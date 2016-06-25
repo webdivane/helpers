@@ -1,18 +1,26 @@
-# The message helper #
+# The [msg](msg.php) helper #
 
 ``msg::get|set|put(); ``
 
-Serves the user messages (optional session use). Can use [Bootstrap](http://getbootstrap.com/components/#alerts-dismissible) alerts dismissable styles.
+Serves the user messages (optional session use). Can use [Bootstrap alerts dismissable](http://getbootstrap.com/components/#alerts-dismissible) styles.
 
-### Session use ###
+### Session ###
 The [msg.php](msg.php) class ***set*** & ***get*** methods trigger session use, while the ***put*** method just prints a message to the output.  
 
-### The helper methods###
-* **Set** `msg::set("Site message come here!", "success")`. Stores the message in the session variable. The next method shows it on the next page load. Method is created to serve save/delete actions, where the action completion will trigger page reloading.
+### The class methods ###
+* **Set** stores a message in the session variable. The ***get*** method shows it on the next page load.
+	
+	`msg::set("Site message come here!", "success")` 
+	
+	Method is created to serve save/delete actions, where the action completion will trigger page reload.
     
-* **Get** `msg::get()`. Shows any stored in the session variable messages.
+* **Get** shows any stored in the session variable messages.
+	
+	`msg::get()`
 
-* **Put** `msg::put("Site message come here!", "plain")`. Shows a single message, without a session connection.
+* **Put** shows a single message, without a session connection.
+
+	`msg::put("Site message come here!", "plain")`
 
 ### Message types ###
 * Regular messages:
