@@ -6,7 +6,7 @@ The helper can work with bootstrap existing message classes. To activate this ju
 
 * Regular messages:
 
-	![Regular messages](../repo-files/msg-types-bootstrap.jpg "Regular messages examples")
+	![Regular messages](../repo-files/msg-types-regular.jpg "Regular messages examples")
  
 * Bootstrap messages: 
 
