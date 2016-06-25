@@ -5,7 +5,7 @@
 Serves the user messages (optional session use). Can work with [Bootstrap](http://getbootstrap.com/components/#alerts-dismissible) alerts dismissable styles.
 
 ### Setup ###
-The [helper class](msg.php) Set & Get methods trigger session use, while the Put method just prints a message to the output.  
+The [msg.php](msg.php) class ***set*** & ***get*** methods trigger session use, while the ***put*** method just prints a message to the output.  
 To activate the [Bootstrap](http://getbootstrap.com/components/#alerts-dismissible) alerts dismissable styles, just change the class constant `const USE_BOOTSTRAP = false;` value to `true`.
 
 ### The helper methods###
