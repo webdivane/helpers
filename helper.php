@@ -4,7 +4,6 @@ class helper {
 
     public static $pageExtension, $preparePassed = array();
 
-
     /**Genereates a list of helpers to be registered on the spl_autoload_register
      * @see ../boot/autoload.php
      * @return array  - active helpers lits to be registered */

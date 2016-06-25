@@ -82,5 +82,3 @@ Contain following methods:
 ---
 
 [![php](repo-files/php-logo.png "Powered by")](http://php.net/)
-
-
