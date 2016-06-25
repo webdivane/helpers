@@ -80,7 +80,7 @@ Contain following methods:
 
 ---
 [
-![php](/[repo-files]/php-logo.svg "Powered by")
+![php]([repo-files]/php-logo.svg "Powered by")
 ](http://php.net/)
 
 ---
