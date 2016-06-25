@@ -29,6 +29,6 @@ The [msg.php](msg.php) class ***set*** & ***get*** methods trigger session use, 
  
 * Bootstrap messages: 
 
-	To activate the [Bootstrap](http://getbootstrap.com/components/#alerts-dismissible) alerts dismissable styles, just change the class constant `const USE_BOOTSTRAP = false;` value to `true`.
+	To activate [Bootstrap alerts dismissable](http://getbootstrap.com/components/#alerts-dismissible) styles, just change the constant `const USE_BOOTSTRAP = false;` value to `true`.
 
 	![Bootstrap messages](../repo-files/msg-types-bootstrap.jpg "Bootstrap messages examples")
