@@ -1,9 +1,21 @@
-# The message helper ``msg::... `` #
-Serves the user messages.
+# The message helper #
+
+``msg::get|set|put(); ``
+
+Serves the user messages (optional session use). Can work with [Bootstrap](http://getbootstrap.com/components/#alerts-dismissible) alerts dismissable styles.
 
 ### Setup ###
-The helper can work with bootstrap existing message classes. To activate this just set the dedicated class constant `const USE_BOOTSTRAP = false;` to `true`.
+The [helper class](msg.php) Set & Get methods trigger session use, while the Put method just prints a message to the output.  
+To activate the [Bootstrap](http://getbootstrap.com/components/#alerts-dismissible) alerts dismissable styles, just change the class constant `const USE_BOOTSTRAP = false;` value to `true`.
 
+### The helper methods###
+* **Set** `msg::set("Site message come here!", "success")`. Stores the message in the session variable. The next method shows it on the next page load. Method is created to serve save/delete actions, where the action completion will trigger page reloading.
+    
+* **Get** `msg::get()`. Shows any stored in the session variable messages.
+
+* **Put** `msg::put("Site message come here!", "plain")`. Shows a single message, without a session connection.
+
+### Message types ###
 * Regular messages:
 
 	![Regular messages](../repo-files/msg-types-regular.jpg "Regular messages examples")
@@ -11,10 +23,3 @@ The helper can work with bootstrap existing message classes. To activate this ju
 * Bootstrap messages: 
 
 	![Bootstrap messages](../repo-files/msg-types-bootstrap.jpg "Bootstrap messages examples")
-
-### The helper methods###
-* **Set:** `msg::set("Site message come here!", "success")`. Stores the message in the session variable. The next method shows it on the next page load. Method is created to serve save/delete actions, where the action completion will trigger page reloading.
-    
-* **Get:** `msg::get()`. Shows any stored in the session variable messages.
-
-* **Put:** `msg::get("Site message come here!", "plain")`. Shows a single message, without session connection.
