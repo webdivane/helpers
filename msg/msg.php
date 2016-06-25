@@ -18,7 +18,7 @@ class msg {
         if(!is_array($msgs)){
             $msgs = array();
         }
-        if(!in_array($type,array("plain","success","error", "warning"))){
+        if(!in_array($type, array_keys(self::$bootstrapTypeToClass))){
             die("Incorrect msg type.");
         }
         $msgs[] = array("value"=>$msg, "type"=>$type);
@@ -29,7 +29,7 @@ class msg {
         self::prepare(true);
         $msgs = isset($_SESSION[self::MSG_SESS_VAR]) ? $_SESSION[self::MSG_SESS_VAR] : array();
         foreach ($msgs as $msg){
-            self::toHtml($msg);
+            self::Html($msg);
         }
         unset($_SESSION[self::MSG_SESS_VAR]);
     }
@@ -41,11 +41,11 @@ class msg {
         self::prepare(true);
         $msgs = is_array($msg) ? $msg : array(array("value"=>$msg, "type"=>$type));
         foreach ($msgs as $msg){
-            self::toHtml($msg);
+            self::Html($msg);
         }
     }
 	
-    private static function toHtml($msg){
+    private static function Html($msg){
         if(!(bool)self::USE_BOOTSTRAP){
             form::openP(array("class"=>"app-msg ".$msg["type"]));
                 form::html($msg["value"]);
