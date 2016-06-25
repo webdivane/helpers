@@ -62,7 +62,8 @@ Contain following methods:
 		
 		RegisterClass("helper");
 		$helperAlrMap=(array)helper::AutoLoadRegisteredList();
-		
+	|
+
 
 * **Prepare** `helper::prepare();`
 	
@@ -80,6 +81,6 @@ Contain following methods:
 
 ---
 [
-![php]("[repo-files]/php-logo.svg" "Powered by")
+![php](-repo-files/php-logo.svg "Powered by")
 ](http://php.net/)
 
