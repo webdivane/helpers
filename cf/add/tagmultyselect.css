@@ -1,0 +1,15 @@
+.multy-select > span {display:block; line-height:40px; background: #f0f0f0; border:1px solid #f0f0f0; cursor:pointer; margin: 10px 0px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;           /* non-prefixed version, currently not supported by any browser */
+}
+.multy-select > span span {display:inline-block; vertical-align:middle; margin:0px 5px; font-size:36px;}
+.multy-select > span span.reorder {float:right; border-left:10px solid #fff; margin: -1px 0px 1px; padding: 3px 5px 5px; min-height:100%; text-align:center; cursor:n-resize;}
+.multy-select > span span.unchecked {opacity:.6}
+.multy-select > span.yes span.unchecked {display:none;}
+.multy-select > span.no span.checked {display:none;}
+.multy-select > span.no span.reorder {display:none;}
+.multy-select > span.sortable-ghost, .multy-select > span:active {background-color:#000; color:white;}
