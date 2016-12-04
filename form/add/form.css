@@ -31,7 +31,7 @@ button[name="save-btn"] {margin-right: 5px;}
 input:focus, textarea:focus {box-shadow: 0px 2px 4px #888888; outline:0px;}
 input[type="checkbox"]:focus {box-shadow:none;}
 
-//width in percents
+/*width in percents*/
 p.fld.width-10pc {width:10%}
 p.fld.width-20pc {width:20%}
 p.fld.width-30pc {width:30%}
