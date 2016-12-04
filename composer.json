@@ -2,7 +2,7 @@
     "name": "webdivane/helpers",
     "description": "A short list of php helper classes.",
     "keywords": ["helpers", "webdivane", "webdiv", "php-helpers", "form::", "cf::"],
-    "homepage": "http://webdiv.live/streamc/helpers/",
+    "homepage": "http://webdiv.live/streams/helpers/",
     "type": "library",
     "license": "MIT",
     "authors": [
