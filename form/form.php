@@ -1,5 +1,6 @@
 <?php
-/** The form helper (input elements methods) */
+/** The form helper (input elements methods) 
+ * @uses val, img */
 class form extends formCore {
 
     static $inpFieldContainer = true;
@@ -118,7 +119,7 @@ class form extends formCore {
      *  @param str   $name
      *  @param str   $value
      *  @param arr   $args - tag attributes: (default) "type"=>"text" */
-    static function inpField($label = "", $name = "", $value = "", $args = array()) {
+    static function inpField($label="", $name="", $value="", $args=array()) {
         $args["type"] = isset($args["type"]) ? $args["type"] : "text";
         if(isset($args["required-error-tag"])){
             $requiredErrorTag = true;

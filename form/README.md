@@ -9,7 +9,36 @@ Instead usage of the usual `<?="<a href=\"linkUrl\">Link</a>"?>` with the curren
 * [formCore.php](/formCore.php) is the core helper class, dedicated to serve mainly the html output calls `form::html("Show my message here!");`
 * [add/](add) folder contain a [form.css](add/form.css) - a base stylesheet file to help with simple inputs formating. 
 
-### Base calls - html tag and output: ###
+##Methods##
+Observing all possible calls is a hige task, so only general examples will be shown below. 
+
+### Input calls ###
+The form input calls are served from the outer [form.php](form.php) class methods. 
+
+#####Input field
+`form::inpField($label="", $name="", $value="", $args=array());`
+
+---
+<pre style="width:49%; float:left; box-sizing:border-box; margin:0px 10px 0px 0px;">
+form::inpField(
+    "Your name:",
+    "visitor-name",
+    "",
+    array("placeholder"=>"John Dowe","autofocus"=>true,
+	  "fld-class"=>"width-50pc flex")
+);
+</pre><pre style="width:49%; box-sizing:border-box; margin:0px;">
+&lt;p class=&quot;fld width-50pc flex&quot;&gt;
+    &lt;label&gt;Your name:&lt;/label&gt;
+    &lt;input placeholder=&quot;John Dowe&quot; autofocus=&quot;&quot; 
+           type=&quot;text&quot; name=&quot;visitor-name&quot;&gt;
+&lt;/p&gt;         
+</pre>
+<div style="clear:both; margin:0px;">&nbsp;</div>
+![inpField](../repo-files/form-inpField.png)
+
+---
+
 * **tag:** `form::tag($innerHtml, $tag, $args)`. Into the `$args` array any html attribute can be assigned: `id`, `class` etc. :
     
     `form::tag("My Inner HTML","p",array("style"=>"font-weight-bold;"));` will output `<p style="font-weight-bold;">My Inner HTML</p>` 
