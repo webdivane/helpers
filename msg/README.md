@@ -2,7 +2,7 @@
 
 ``msg::get|set|put(); ``
 
-Serves the user messages (optional session use). Can use [Bootstrap alerts dismissable](http://getbootstrap.com/components/#alerts-dismissible) styles.
+Serves the user messages (optional session use). Can use [Bootstrap alerts dismissable](http://getbootstrap.com/components/#alerts-dismissible) styles...
 
 ### Session ###
 The [msg.php](msg.php) class ***set*** & ***get*** methods trigger session use, while the ***put*** method just prints a message to the output.  
