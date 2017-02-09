@@ -7,18 +7,18 @@ Serves the user messages (optional session use). Can use [Bootstrap alerts dismi
 ### Session ###
 The [msg.php](msg.php) class ***set*** & ***get*** methods trigger session use, while the ***put*** method just prints a message to the output.  
 
-### The class methods ###
-* **Set** stores a message in the session variable. The ***get*** method shows it on the next page load.
+### The [msg helper class](msg.php) methods ###
+* **Set** stores a message in the session `$_SESSION[$key]`. The ***get*** method shows it on the next page load.
 	
 	`msg::set("Site message come here!", "success")` 
 	
 	Method is created to serve save/delete actions, where the action completion will trigger page reload.
     
-* **Get** shows any stored in the session variable messages.
+* **Get** shows any stored under the session key messages.
 	
 	`msg::get()`
 
-* **Put** shows a single message, without a session connection.
+* **Put** shows a single message.
 
 	`msg::put("Site message come here!", "plain")`
 
