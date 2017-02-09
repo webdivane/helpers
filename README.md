@@ -16,7 +16,7 @@ A short list of ***[php](http://php.net/ "PHP.net")*** helper classes
 The root includes a base [helper.php](helper.php) class and a list of separte helpers folders ([forms/](/forms/)).
 ```
 helpers/
-├── cf/							- Common functions
+├── [cf/](cf)							- Common functions
 ├── ...							
 ├── form/						- Form (input & html) output
 ├── ...							
