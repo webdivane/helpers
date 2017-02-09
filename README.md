@@ -82,5 +82,5 @@ Contain following methods:
 ---
 
 [![php][php-logo]](http://php.net/ "Powered by PHP")
-[php-logo]: ../repo-files/php-logo.png "PHP"
+[php-logo]: repo-files/php-logo.png "PHP"
 
