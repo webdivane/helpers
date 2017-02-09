@@ -81,4 +81,4 @@ Contain following methods:
 
 ---
 
-[![php][../repo-files/php-logo.png]][http://php.net/]
+[![php](../repo-files/php-logo.png)](http://php.net/)
