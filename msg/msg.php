@@ -1,58 +1,70 @@
 <?php
-/** The message helper class */
-class msg {
+/** The message PHP helper*/
+class msg 
+{
+    /** @const string MSG_SESSION_KEY Default $_SESSION key to be used */
+    const MSG_SESSION_KEY = "web-app-msgs";
+    /** @const boolean Do the site use bootstrap CSS ({@link https://getbootstrap.com})*/
+    const USE_BOOTSTRAP_CSS = true;
     
-    const MSG_SESS_VAR = "web-app-msgs";
-
-    const USE_BOOTSTRAP = false;
-    private static $bootstrapTypeToClass = array(
-        "plain"=>"alert-info", "success"=>"alert-success", "error"=>"alert-danger", "warning"=>"alert-warning"
+    /**@var array Context "map" to dedicated Bootstrap class attribute*/
+    private static $contextMapToBootstrapClass = array(
+        "plain"=>"alert-info", "success"=>"alert-success",
+        "error"=>"alert-danger", "warning"=>"alert-warning"
     );
 
-    /**Sets message in session
+    /**Sets the message in the session
      * @param string $msg The message content
-     * @param string $type - one of  ["plain"(blue),"success"(green),"error"(red), "warning"(yellow)] */
-    final static function set($msg="", $type="plain"){
+     * @param string $context For the background color of message tag; One of
+     *      ["plain"(gray/blue),"success"(green),"error"(red), "warning"(yellow)]
+     * $param (null)|string $customSessionKey - Adjustment to the session key. 
+     *      For the cases where separate messages are has to appear on diferent 
+     *      positins.*/
+    final static function set($msg="", $context="plain", $customSessionKey=null){
         self::prepare(true);
-        $msgs = & $_SESSION[self::MSG_SESS_VAR];
+        $key = (isset($customSessionKey)? $customSessionKey : self::MSG_SESSION_KEY);
+        $msgs = &$_SESSION[$key];
         if(!is_array($msgs)){
             $msgs = array();
         }
-        if(!in_array($type, array_keys(self::$bootstrapTypeToClass))){
+        if(!in_array($context, array_keys(self::$contextMapToBootstrapClass))){
             die("Incorrect msg type.");
         }
-        $msgs[] = array("value"=>$msg, "type"=>$type);
+        $msgs[] = array("value"=>$msg, "context"=>$context);
     }
     
-    /**Shows session messages*/
-    final static function get(){
+    /**Shows storred in the session message(s)
+     * $param (null)|string $customSessionKey - Adjustment to the session 
+     * variable name. For the cases where separate messages needed (to appear on diferent positins).*/
+    final static function get($customSessionKey=null){
         self::prepare(true);
-        $msgs = isset($_SESSION[self::MSG_SESS_VAR]) ? $_SESSION[self::MSG_SESS_VAR] : array();
+        $key = (isset($customSessionKey)? $customSessionKey : self::MSG_SESSION_KEY);
+        $msgs = isset($_SESSION[$key]) ? $_SESSION[$key] : array();
         foreach ($msgs as $msg){
             self::Html($msg);
         }
-        unset($_SESSION[self::MSG_SESS_VAR]);
+        unset($_SESSION[$key]);
     }
     
     /** Just shows a message
      * @param array|string $msg  - is is_array($msg) the $type is ignored as type is expected to be set in the array inside
-     * @param string $type = "plain" */
-    final static function put($msg, $type="plain"){
+     * @param string $context = "plain" */
+    final static function put($msg, $context="plain"){
         self::prepare(true);
-        $msgs = is_array($msg) ? $msg : array(array("value"=>$msg, "type"=>$type));
+        $msgs = is_array($msg) ? $msg : array(array("value"=>$msg, "context"=>$context));
         foreach ($msgs as $msg){
             self::Html($msg);
         }
     }
 	
     private static function Html($msg){
-        if(!(bool)self::USE_BOOTSTRAP){
-            form::openP(array("class"=>"app-msg ".$msg["type"]));
+        if(!(bool)self::USE_BOOTSTRAP_CSS){
+            form::openP(array("class"=>"app-msg ".$msg["context"]));
                 form::html($msg["value"]);
                 form::link("javascript:void(0);","close",array("class"=>"material-icons","onclick"=>"var _this = this; setTimeout(function(){_this.parentNode.style.display = 'none';},400); this.parentNode.setAttribute('class',(this.parentNode.getAttribute('class')+' msg-fadeout'));"));
             form::closeP();
         } else {
-            form::openP(array("class"=>"alert alert-dismissible ".self::$bootstrapTypeToClass[$msg["type"]]));
+            form::openP(array("class"=>"alert alert-dismissible ".self::$contextMapToBootstrapClass[$msg["context"]]));
                 form::openButton(array("type"=>"button", "class"=>"close", "data-dismiss"=>"alert", "aria-label"=>"Close"));
                     form::span("&times;",array("aria-hidden"=>"true"));
                 form::closeButton();
