@@ -5,7 +5,7 @@ A short list of ***[php](http://php.net/ "PHP.net")*** helper classes
 
 
 * [GitHub URL](https://github.com/webdivane/php-helpers)
-* Version 1.1 (beta)
+* Version 1.1.2 (beta)
 * Public since: 2016-06-25
  
 **Note:** The *library is under constant development*. Many of its parts ***will*** be updated in the future.
@@ -13,7 +13,11 @@ A short list of ***[php](http://php.net/ "PHP.net")*** helper classes
 ##
 
 #### Contents ####
+<<<<<<< HEAD
 The root includes a base [helper.php](helper.php) class and a list of separate helpers folders ([cf/](/cf/), [form/](/form/, [msg/](/msg/)).
+=======
+The root includes a base [helper.php](helper.php) class and a list of separate helpers folders ([cf](/cf/),[form](/form/,[msg](/msg/)).
+>>>>>>> add-config
 ```
 helpers/
 ├── cf/						- Common functions
