@@ -13,7 +13,7 @@ A short list of ***[php](http://php.net/ "PHP.net")*** helper classes
 ##
 
 #### Contents ####
-The root includes a base [helper.php](helper.php) class and a list of separte helpers folders ([forms/](/forms/)).
+The root includes a base [helper.php](helper.php) class and a list of separate helpers folders ([cf/](/cf/),[form/](/form/,[msg/](/msg/)).
 ```
 helpers/
 ├── cf/						- Common functions
@@ -27,16 +27,16 @@ helpers/
 
 ```
 
-**Separate helpers may (or may not) extend the base [helper.php](helper.php) class.** (it cary for separete helpers autoload and use preparations).
+**Separate helpers may (or may not) extend the base [helper.php](helper.php) class.** (it cary for separate helpers autoload and use preparations).
 
-More details about the base [helper.php](helper.php) class can be fonud below.  
+More details about the base [helper.php](helper.php) class can be found below.  
  
 ##The base [helper.php](helper.php) class##
 Contain following methods:
 
 * **Auto load registered list** `helper::AutoLoadRegisteredList();`
 
-	Returns the regitered helpers as array, ready for in `spl_autoload_register()` use:
+	Returns the registered helpers as array, ready for in `spl_autoload_register()` use:
 
 		
 
@@ -69,9 +69,9 @@ Contain following methods:
 	
 	This is required mainly for helpers which rely of additional files load (before self helper usage). 
 	
-	In case the helper require a files to be loaded before its call, the base class ensures the `hlpr::prepare();` method is trigerred on the page load. If not, it stops the further execution with an error message. 
+	In case the helper require a files to be loaded before its call, the base class ensures the `helper::prepare();` method is triggered on the page load. If not, it stops the further execution with an error message. 
 		
-	**Example:** The [msg/](msg/) helper may requrire dedicated CSS files to can work, so is mandatory the `msg::prepare();` to be called before to try to show/set/get any message. In case the `msg::put("I'm happy today!", "success");` is called without a prior `msg::prepare();` call, the script execution will be stopped with the message: 
+	**Example:** The [msg/](msg/) helper may require dedicated CSS files to can work, so is mandatory the `msg::prepare();` to be called before to try to show/set/get any message. In case the `msg::put("I'm happy today!", "success");` is called without a prior `msg::prepare();` call, the script execution will be stopped with the message: 
 	
 	***ERROR (in a helper call):** Please call the msg::prepare(); method before the page headers sent.*
 	
