@@ -2,21 +2,14 @@
 /** The helper (base) class */
 class helper {
 
-<<<<<<< .merge_file_a09196
-    public static $pageExtension, $preparePassed = array();
-=======
     public static $pageExtension, $config, $preparePassed = array();
     const CONFIG_DIR = "config";
->>>>>>> .merge_file_a03924
 
     /**Genereates a list of helpers to be registered on the spl_autoload_register
      * @see ../boot/autoload.php
      * @return array  - active helpers lits to be registered */
     static function AutoLoadRegisteredList(){
-<<<<<<< .merge_file_a09196
-=======
         self::config();
->>>>>>> .merge_file_a03924
         $alr = array();
         $alr["cf"]                   =   array("fn" => array("cf/cfCore","cf/cf"));
         $alr["ckeditor"]             =   array("fn" => "ckeditor/ckeditor");
@@ -34,8 +27,7 @@ class helper {
         $alr["token"]                =   array("fn" => "token/token");
         return $alr;
     }
-<<<<<<< .merge_file_a09196
-=======
+
     private static function config(){
         $path = __DIR__."/".self::CONFIG_DIR."/";
         foreach(($files = array("config.json", "config.sample.json")) as $fn){
@@ -51,8 +43,6 @@ class helper {
         }
         self::$config = isset($config) ? $config : cf::end("Missing any config file ".implode(", ", $files).". (at ".$path);
     }
->>>>>>> .merge_file_a03924
-
 
     static function prepare($setOrCheck = false, $classMethod){
         self::$pageExtension = cf::$rq["ext"];
