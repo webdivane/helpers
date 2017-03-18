@@ -1,13 +1,11 @@
 # The [msg](msg.php) helper #
 
-``msg::get|set|put(); ``
-
 Serves the user messages (optional session use). Can use [Bootstrap alerts dismissable](http://getbootstrap.com/components/#alerts-dismissible) styles...
 
 ### Session ###
-The [msg.php](msg.php) class ***set*** & ***get*** methods trigger session use, while the ***put*** method just prints a message to the output.  
+The [msg.php](msg.php) class ***set*** & ***get*** methods trigger session use, while the ***put*** method just prints a message to the output.
 
-### The [msg helper class](msg.php) methods ###
+### The [msg helper class](msg.php) methods ``msg::get|set|put(); `` ###
 * **Set** stores a message in the session `$_SESSION[$key]`. The ***get*** method shows it on the next page load.
 	
 	`msg::set("Site message come here!", "success")` 
@@ -27,7 +25,7 @@ The [msg.php](msg.php) class ***set*** & ***get*** methods trigger session use, 
 
 	![Regular messages](../repo-files/msg-types-regular.jpg "Regular messages examples")
  
-* Bootstrap messages: 
+* Bootstrap messages:
 
 	To activate [Bootstrap alerts dismissable](http://getbootstrap.com/components/#alerts-dismissible) styles, just change the constant `const USE_BOOTSTRAP = false;` value to `true`.
 

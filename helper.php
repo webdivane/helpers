@@ -2,12 +2,14 @@
 /** The helper (base) class */
 class helper {
 
-    public static $pageExtension, $preparePassed = array();
+    public static $pageExtension, $config, $preparePassed = array();
+    const CONFIG_DIR = "config";
 
     /**Genereates a list of helpers to be registered on the spl_autoload_register
      * @see ../boot/autoload.php
      * @return array  - active helpers lits to be registered */
     static function AutoLoadRegisteredList(){
+        self::config();
         $alr = array();
         $alr["cf"]                   =   array("fn" => array("cf/cfCore","cf/cf"));
         $alr["ckeditor"]             =   array("fn" => "ckeditor/ckeditor");
@@ -26,6 +28,21 @@ class helper {
         return $alr;
     }
 
+    private static function config(){
+        $path = __DIR__."/".self::CONFIG_DIR."/";
+        foreach(($files = array("config.json", "config.sample.json")) as $fn){
+            if(is_readable(($file=$path.$fn))){
+                $config = json_decode(file_get_contents($file), true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    if (function_exists('json_last_error_msg')) {
+                        $error_message = "error message:".json_last_error_msg().", ";
+                    }
+                    cf::end("Syntax error in ".$fn.". (".$error_message."file: ".$file);
+                }
+            }
+        }
+        self::$config = isset($config) ? $config : cf::end("Missing any config file ".implode(", ", $files).". (at ".$path);
+    }
 
     static function prepare($setOrCheck = false, $classMethod){
         self::$pageExtension = cf::$rq["ext"];
