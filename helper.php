@@ -12,6 +12,7 @@ class helper {
         self::config();
         $alr = array();
         $alr["cf"]                   =   array("fn" => array("cf/cfCore","cf/cf"));
+        /**
         $alr["ckeditor"]             =   array("fn" => "ckeditor/ckeditor");
         $alr["cssmodal"]             =   array("fn" => "cssmodal/cssmodal");
         $alr["db"]                   =   array("fn" => array("db/dbCore","db/db"));
@@ -25,6 +26,7 @@ class helper {
         $alr["table"]                =   array("fn" => array("table/tableCore","table/table"));
         $alr["val"]                  =   array("fn" => array("val/valCore","val/val"));
         $alr["token"]                =   array("fn" => "token/token");
+        */
         return $alr;
     }
 
