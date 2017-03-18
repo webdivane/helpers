@@ -209,5 +209,10 @@ class cfCore {
         }
         return json_encode($user_data);
     }
+    
+    public static function ifNull($val, $defaultVal){
+		return is_null($val) ? $defaultVal : $val;
+	}
+
 
 }
