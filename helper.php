@@ -32,7 +32,7 @@ class helper {
     }
 
     private static function config(){
-        $path = __DIR__."/".self::CONFIG_DIR."/";
+        $path = self::HELPERS_DIR .DS. self::CONFIG_DIR .DS;
         foreach(($files = array("config.json", "config.sample.json")) as $fn){
             if(is_readable(($file=$path.$fn))){
                 $config = json_decode(file_get_contents($file), true);
@@ -53,7 +53,7 @@ class helper {
      * @param null|string $ext - <code>.php</code> */
     static function uses($classes, $helper, $ext=".php"){
         foreach((is_array($classes)?$classes:array($classes)) as $c){
-            require APP_HELPERS . $helper . DS . $c . $ext;
+            require self::HELPERS_DIR . $helper . DS . $c . $ext;
         }
     }
 
