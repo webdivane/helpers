@@ -3,6 +3,7 @@
 class helper {
 
     public static $pageExtension, $config, $preparePassed = array();
+    const HELPERS_DIR = (__DIR__.DS);
     const CONFIG_DIR = "config";
 
     /**Genereates a list of helpers to be registered on the spl_autoload_register
@@ -63,4 +64,5 @@ class helper {
     }
 
 }
+if(!defined("DS")){ define("DS",DIRECTORY_SEPARATOR);}
 
