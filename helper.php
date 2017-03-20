@@ -12,7 +12,7 @@ class helper {
     static function AutoLoadRegisteredList(){
         self::config();
         $alr = array();
-        $alr["cf"]                   =   array("fn" => array("cf/cfCore","cf/cf"));
+        $alr[($h="cf")]           =   array("fn" => $h.DS.$h);
         /**
         $alr["ckeditor"]             =   array("fn" => "ckeditor/ckeditor");
         $alr["cssmodal"]             =   array("fn" => "cssmodal/cssmodal");
