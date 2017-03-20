@@ -46,6 +46,16 @@ class helper {
         }
         self::$config = isset($config) ? $config : cf::end("Missing any config file ".implode(", ", $files).". (at ".$path);
     }
+    
+    /**Register (pre-load) all files needed for the current helper
+     * @param string|array $classes - the class names which the current helper extends (@note ClassName===FileName) 
+     * @param string $helper - the current helper where current method was called , i.e. <code>basename(__FILE__,"php")</code>
+     * @param null|string $ext - <code>.php</code> */
+    static function uses($classes, $helper, $ext=".php"){
+        foreach((is_array($classes)?$classes:array($classes)) as $c){
+            require APP_HELPERS . $helper . DS . $c . $ext;
+        }
+    }
 
     static function prepare($setOrCheck = false, $classMethod){
         self::$pageExtension = cf::$rq["ext"];
