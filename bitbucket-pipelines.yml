@@ -11,4 +11,4 @@ pipelines:
         script: # Modify the commands below to build your repository.
           - apt-get update
           - apt-get -qq install git-ftp
-          - git ftp init --user $FTP_USERNAME --passwd $FTP_PASSWORD ftpes://webdiv.live
+          - git ftp push --user $FTP_USERNAME --passwd $FTP_PASSWORD ftpes://webdiv.live
