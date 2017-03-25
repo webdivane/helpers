@@ -6,7 +6,7 @@ class cf extends common {
 
     static $protectFileinfoOnDumps = false;
     
-    /** Regular php `var_dump()` replacement - writes variables dump (in a pre tag), showing the own call position. */
+    /** `<a id="vd">` Regular php `var_dump()` replacement - writes variables dump (in a pre tag), showing the own call position. */
     final static public function vd(){
         $args = func_get_args();
 
@@ -26,7 +26,7 @@ class cf extends common {
         echo "</pre><p style=\"font-family:Tahoma,sans-serif; padding-top:5px; font-size:12px; color:#888; border-top:1px dashed #888; margin:0px;\">".$callInfo."</p>";
     }
 
-    /** <a id="vd"> Regular php `die(var_dump())` replacement - dies writing variables dump (in a pre tag), showing the own call position. */
+    /** Regular php `die(var_dump())` replacement - dies writing variables dump (in a pre tag), showing the own call position. */
     final static public function vdd(){
         $args = func_get_args();
         if(!headers_sent()){ echo "<meta charset=\"UTF-8\">\n";}
