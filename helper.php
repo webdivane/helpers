@@ -72,6 +72,30 @@ class helper {
         }
         return $continuePreparation;
     }
+    
+    /** Adds the invoker's <code>__METHOD__</code> value to self::prepared array
+     * to be able on helper::prepared(__METHOD__) to confirm the invoker's 
+     * prepare method was passed 
+     * 
+     * @todo: Rename self::NEW_prepare()  -> self::prepare();
+     *               self::$preparePassed -> self::$prepared 
+     *        and Remove self::$pageExtension its obevious to use cf::$rq["ext"]
+     * 
+     * @param string $__METHOD__ - Invoker's <code>__METHOD__</code> value */
+    static function NEW_prepare($__METHOD__){
+        if(!in_array($__METHOD__, self::$prepared)){
+            self::$prepared[] = $__METHOD__;
+        }
+    }
+    
+    /** Confirms the prepare function is called for the current class method 
+     * @param string $__METHOD__ - Invoker's <code>__METHOD__</code> value
+     * @return (bool)true | die(...) */
+    static function prepared($__METHOD__){
+        if(!in_array($__METHOD__, self::$prepared) && empty(cf::$rq["ext"])){
+            die("ERROR (in a ".__CLASS__." call): Please call the ".$__METHOD__."(); method before the page headers sent."); 
+        }
+    }
 
 }
 if(!defined("DS")){ define("DS",DIRECTORY_SEPARATOR);}
