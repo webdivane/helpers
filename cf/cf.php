@@ -6,7 +6,7 @@ class cf extends common {
 
     static $protectFileinfoOnDumps = false;
     
-    /** `<a id="vd">` Regular php `var_dump()` replacement - writes variables dump (in a pre tag), showing the own call position. */
+    /**Regular php `var_dump()` replacement - writes variables dump (in a pre tag), showing the own call position. */
     final static public function vd(){
         $args = func_get_args();
 
