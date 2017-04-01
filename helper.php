@@ -3,8 +3,10 @@
 class helper {
 
     public static $pageExtension, $config, $preparePassed = array();
-    const HELPERS_DIR = (__DIR__.DS);
+    private static $prepared = array();
+    const HELPERS_DIR = __DIR__;
     const CONFIG_DIR = "config";
+    const DS = DIRECTORY_SEPARATOR;
 
     /**Genereates a list of helpers to be registered on the spl_autoload_register
      * @see ../boot/autoload.php
@@ -32,7 +34,7 @@ class helper {
     }
 
     private static function config(){
-        $path = self::HELPERS_DIR .DS. self::CONFIG_DIR .DS;
+        $path = self::HELPERS_DIR .self::DS. self::CONFIG_DIR .DS;
         foreach(($files = array("config.json", "config.sample.json")) as $fn){
             if(is_readable(($file=$path.$fn))){
                 $config = json_decode(file_get_contents($file), true);
@@ -53,7 +55,7 @@ class helper {
      * @param null|string $ext - <code>.php</code> */
     static function uses($classes, $helper, $ext=".php"){
         foreach((is_array($classes)?$classes:array($classes)) as $c){
-            require self::HELPERS_DIR . $helper . DS . $c . $ext;
+            require self::HELPERS_DIR.self::DS . $helper . self::DS . $c . $ext;
         }
     }
 
@@ -81,7 +83,7 @@ class helper {
      *               self::$preparePassed -> self::$prepared 
      *        and Remove self::$pageExtension its obevious to use cf::$rq["ext"]
      * 
-     * @param string $__METHOD__ - Invoker's <code>__METHOD__</code> value */
+     * @param string $__METHOD__ Invoker's <code>__METHOD__</code> value */
     static function NEW_prepare($__METHOD__){
         if(!in_array($__METHOD__, self::$prepared)){
             self::$prepared[] = $__METHOD__;
@@ -89,14 +91,15 @@ class helper {
     }
     
     /** Confirms the prepare function is called for the current class method 
-     * @param string $__METHOD__ - Invoker's <code>__METHOD__</code> value
+     * @param string $__METHOD__ Invoker's <code>__METHOD__</code> value
      * @return (bool)true | die(...) */
     static function prepared($__METHOD__){
         if(!in_array($__METHOD__, self::$prepared) && empty(cf::$rq["ext"])){
-            die("ERROR (in a ".__CLASS__." call): Please call the ".$__METHOD__."(); method before the page headers sent."); 
+            die("ERROR (in a ".__CLASS__." call): Please call the ".$__METHOD__."(); before the page headers sent."); 
         }
     }
 
 }
+
 if(!defined("DS")){ define("DS",DIRECTORY_SEPARATOR);}
 
