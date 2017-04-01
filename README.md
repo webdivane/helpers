@@ -1,4 +1,4 @@
-#Helpers#
+# Helpers #
 
 A short list of ***[php](http://php.net/ "PHP.net")*** helper classes
 ## 
@@ -81,6 +81,6 @@ Contain following methods:
 
 ---
 
-[![Powered by PHP][php-logo]](http://php.net/ "Powered by PHP")
+[ ![Powered by PHP][php-logo] ](http://php.net/ "Powered by PHP")
 [php-logo]: repo-files/php-logo.png "Powered by PHP"
 
