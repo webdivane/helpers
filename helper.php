@@ -19,7 +19,6 @@ class helper {
             }
             cf::end("Syntax error in ".$fn.". (".$error_message."file: ".$file);
         } 
-        
         unset($composer->autoload->{"psr-0"}->helper); //composer autload list begins with the current class definition
         
         $alr = array();
@@ -29,10 +28,17 @@ class helper {
         return $alr;
     }
 
-    final static function config(){
-        $path = self::HELPERS_DIR .self::DS. self::CONFIG_DIR .DS;
-        foreach(($files = array("config.json", "config.sample.json")) as $fn){
-            if(is_readable(($file=$path.$fn))){
+    /**Returns the self::$config[$helper] values by a helper request.
+     * On call withaut argument executes the initial config load from the dedicated file @see /config/config.json */
+    final static function config($helper=null){
+        if(isset($helper)){
+            return  (   array_key_exists($helper, self::$config) ?
+                        self::$config[$helper] :
+                        cf::end("Missing ".$helper." config data")
+                    );
+        } else {
+            $path = self::HELPERS_DIR .self::DS. self::CONFIG_DIR .DS;
+            if(is_readable(($file=$path.($fn="config.json")))){
                 $config = json_decode(file_get_contents($file), true);
                 if (json_last_error() !== JSON_ERROR_NONE) {
                     if (function_exists('json_last_error_msg')) {
@@ -41,8 +47,8 @@ class helper {
                     cf::end("Syntax error in ".$fn.". (".$error_message."file: ".$file);
                 }
             }
+            self::$config = isset($config) ? $config : cf::end("Missing any config file ".implode(", ", $files).". (at ".$path);
         }
-        self::$config = isset($config) ? $config : cf::end("Missing any config file ".implode(", ", $files).". (at ".$path);
     }
     
     /**Register (pre-load) all files needed for the current helper

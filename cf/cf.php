@@ -4,7 +4,7 @@ helper::uses(["common"], basename(__FILE__,".php"));
 /** The cf (Common Functions) helper class */
 class cf extends common {
 
-    static $protectFileinfoOnDumps = false;
+    static $config = null;
     
     /**Regular php `var_dump()` replacement - writes variables dump (in a pre tag), showing the own call position. */
     final static public function vd(){
@@ -61,3 +61,4 @@ class cf extends common {
         return $ckSettings;
     }
 }
+cf::$config = helper::config("cf");
