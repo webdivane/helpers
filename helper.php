@@ -29,7 +29,7 @@ class helper {
         return $alr;
     }
 
-    private static function config(){
+    final static function config(){
         $path = self::HELPERS_DIR .self::DS. self::CONFIG_DIR .DS;
         foreach(($files = array("config.json", "config.sample.json")) as $fn){
             if(is_readable(($file=$path.$fn))){
