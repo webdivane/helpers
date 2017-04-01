@@ -81,6 +81,5 @@ Contain following methods:
 
 ---
 
-[ ![Powered by PHP][php-logo] ](http://php.net/ "Powered by PHP")
-[php-logo]: repo-files/php-logo.png "Powered by PHP"
+[![Powered by PHP](repo-files/php-logo.png)](http://php.net/ "Powered by PHP")
 
