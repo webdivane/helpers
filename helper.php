@@ -8,7 +8,7 @@ class helper {
     const CONFIG_DIR = "config";
     const DS = DIRECTORY_SEPARATOR;
 
-    /**Genereates a list of helpers to be registered on the spl_autoload_register
+    /**Genereates a list of helpers to be used on the spl_autoload_register
      * @see ../boot/autoload.php
      * @return array  - active helpers lits to be registered */
     static function AutoLoadRegister(){
@@ -20,9 +20,8 @@ class helper {
             cf::end("Syntax error in ".$fn.". (".$error_message."file: ".$file);
         } 
         
-        self::config();
-        
         unset($composer->autoload->{"psr-0"}->helper); //composer autload list begins with the current class definition
+        
         $alr = array();
         foreach(array_keys((array)$composer->autoload->{"psr-0"}) as $h){
             $alr[$h] = $h.self::DS.$h;
@@ -98,5 +97,4 @@ class helper {
 
 }
 
-if(!defined("DS")){ define("DS",DIRECTORY_SEPARATOR);}
-
+helper::config();
