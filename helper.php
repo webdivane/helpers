@@ -11,25 +11,22 @@ class helper {
     /**Genereates a list of helpers to be registered on the spl_autoload_register
      * @see ../boot/autoload.php
      * @return array  - active helpers lits to be registered */
-    static function AutoLoadRegisteredList(){
+    static function AutoLoadRegister(){
+        $composer = json_decode(file_get_contents(($file=self::HELPERS_DIR .self::DS.($fn="composer.json"))));
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            if (function_exists('json_last_error_msg')) {
+                $error_message = "error message:".json_last_error_msg().", ";
+            }
+            cf::end("Syntax error in ".$fn.". (".$error_message."file: ".$file);
+        } 
+        
         self::config();
+        
+        unset($composer->autoload->{"psr-0"}->helper); //composer autload list begins with the current class definition
         $alr = array();
-        $alr[($h="cf")]           =   array("fn" => $h.DS.$h);
-        /**
-        $alr["ckeditor"]             =   array("fn" => "ckeditor/ckeditor");
-        $alr["cssmodal"]             =   array("fn" => "cssmodal/cssmodal");
-        $alr["db"]                   =   array("fn" => array("db/dbCore","db/db"));
-        $alr["fallback"]             =   array("fn" => "fallback/fallback");
-        $alr["form"]                 =   array("fn" => array("form/formCore","form/form"));
-        $alr["img"]                  =   array("fn" => "img/img"); //Amended version of the previous
-        $alr["log"]                  =   array("fn" => "log/log");
-        $alr["lang"]                 =   array("fn" => "lang/lang");
-        $alr["msg"]                  =   array("fn" => "msg/msg");
-        $alr["signup"]               =   array("fn" => "signup/signup");
-        $alr["table"]                =   array("fn" => array("table/tableCore","table/table"));
-        $alr["val"]                  =   array("fn" => array("val/valCore","val/val"));
-        $alr["token"]                =   array("fn" => "token/token");
-        */
+        foreach(array_keys((array)$composer->autoload->{"psr-0"}) as $h){
+            $alr[$h] = $h.self::DS.$h;
+        }
         return $alr;
     }
 
