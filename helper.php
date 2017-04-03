@@ -2,8 +2,8 @@
 /** The helper (base) class */
 class helper {
 
-    public static $pageExtension, $config, $preparePassed = array();
-    private static $prepared = array();
+    public static $pageExtension, $preparePassed = array();
+    private static $config=null, $prepared = array();
     const HELPERS_DIR = __DIR__;
     const CONFIG_DIR = "config";
     const DS = DIRECTORY_SEPARATOR;
@@ -17,7 +17,7 @@ class helper {
             if (function_exists('json_last_error_msg')) {
                 $error_message = "error message:".json_last_error_msg().", ";
             }
-            cf::end("Syntax error in ".$fn.". (".$error_message."file: ".$file);
+            exit("Syntax error in ".$fn.". (".$error_message."file: ".$file);
         } 
         unset($composer->autoload->{"psr-0"}->helper); //composer autload list begins with the current class definition
         
@@ -29,12 +29,12 @@ class helper {
     }
 
     /**Returns the self::$config[$helper] values by a helper request.
-     * On call withaut argument executes the initial config load from the dedicated file @see /config/config.json */
+     * On call withaut argument executes the initial config load (@see /config/config.json) */
     final static function config($helper=null){
         if(isset($helper)){
             return  (   array_key_exists($helper, self::$config) ?
                         self::$config[$helper] :
-                        cf::end("Missing ".$helper." config data")
+                        exit("Missing ".$helper." config data in the helpers/config/config.json")
                     );
         } else {
             $path = self::HELPERS_DIR .self::DS. self::CONFIG_DIR .DS;
@@ -44,10 +44,10 @@ class helper {
                     if (function_exists('json_last_error_msg')) {
                         $error_message = "error message:".json_last_error_msg().", ";
                     }
-                    cf::end("Syntax error in ".$fn.". (".$error_message."file: ".$file);
+                    exit("Syntax error in ".$fn.". (".$error_message."file: ".$file);
                 }
             }
-            self::$config = isset($config) ? $config : cf::end("Missing any config file ".implode(", ", $files).". (at ".$path);
+            self::$config = isset($config) ? $config : exit("Missing config file ".$file.". (at ".$path);
         }
     }
     
@@ -77,15 +77,14 @@ class helper {
         return $continuePreparation;
     }
     
-    /** Adds the invoker's <code>__METHOD__</code> value to self::prepared array
-     * to be able on helper::prepared(__METHOD__) to confirm the invoker's 
-     * prepare method was passed 
+    /** Adds the invoking class <code>__METHOD__</code> value to self::prepared array, to be able later 
+     * via helper::prepared(__METHOD__), to confirm the invoking class prepare method was passed.
      * 
      * @todo: Rename self::NEW_prepare()  -> self::prepare();
      *               self::$preparePassed -> self::$prepared 
-     *        and Remove self::$pageExtension its obevious to use cf::$rq["ext"]
+     *        and Remove self::$pageExtension its obvious to use cf::$rq["ext"]
      * 
-     * @param string $__METHOD__ Invoker's <code>__METHOD__</code> value */
+     * @param string $__METHOD__ <code>__METHOD__</code> value (...::prepare of the invoking class)*/
     static function NEW_prepare($__METHOD__){
         if(!in_array($__METHOD__, self::$prepared)){
             self::$prepared[] = $__METHOD__;
@@ -93,7 +92,7 @@ class helper {
     }
     
     /** Confirms the prepare function is called for the current class method 
-     * @param string $__METHOD__ Invoker's <code>__METHOD__</code> value
+     * @param string $__METHOD__ Invoking <code>__METHOD__</code> value
      * @return (bool)true | die(...) */
     static function prepared($__METHOD__){
         if(!in_array($__METHOD__, self::$prepared) && empty(cf::$rq["ext"])){
