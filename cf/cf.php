@@ -19,7 +19,7 @@ class cf extends common {
             var_dump($value);
         }
         echo "</pre>";        
-        self::callTrace();
+        self::backtrace();
     }
 
     /** Regular php `die(var_dump())` replacement - dies dump(ing) passed args, showing self call position. */
@@ -30,7 +30,7 @@ class cf extends common {
             var_dump($value);
         }
         echo "</pre>";
-        self::callTrace(); 
+        self::backtrace(); 
         exit();
     }
 
@@ -40,19 +40,22 @@ class cf extends common {
     final static function end($msg, $callIndex = 0){
         if(!headers_sent()){ header('Content-Type: text/html; charset=utf-8'); }
         echo "<pre contenteditable>".$msg."</pre>";
-        self::callTrace(($callIndex+2)); //Call index is expanded with 2 -> skips the cf::end() & cf::callTrace() calls.
+        self::backtrace(($callIndex+2)); //Call index is expanded with 2 -> skips the cf::end() & cf::callTrace() calls.
         exit();
     }
     
-    /** Prints the call func label and if allowed filename and line of the call position
+    /** Call backtrace informer.
+     *  Prints the call func label and if allowed filename and line of the call position
      *  @param integer $index */
-    final static function callTrace($index=2){
+    final static function backtrace($index=2){
         $callers=debug_backtrace();
 
         $class = isset($callers[$index], $callers[$index]["class"]) ? $callers[$index]["class"]."::" : null;
-
+        
         $labels = array("end"=>"End", "vdd"=>"End dump", "vd"=>"Dump");
-        $info = $labels[($function=$callers[1]["function"])] ." triggered from: " . $class . $function . "()";
+        $label = function ($func) use ($labels) { return ((in_array($labels, array_keys($labels))) ? $labels[$func] : $func); };
+        
+        $info = $label($function=$callers[1]["function"]) ." triggered from: " . $class . $function . "()";
 
         switch (self::$config["dumps-protect-fileinfo"]) {
             case 'path-only': // class-filename.php (line: 123).
@@ -66,17 +69,6 @@ class cf extends common {
                 break;
         }
         echo "<p style=\"font-family:Tahoma,'sans-serif'; padding-top:5px; font-size:12px; color:#888; border-top:1px dashed #888; margin:0px;\">".$info."</p>";
-    }
-
-    static function defaultCkSettings(){
-        $ckSettings = array();
-        $ckSettings["removePlugins"] = "tabletools,table,image";
-        $ckSettings["removeButtons"] = "HorizontalRule,SpecialChar,Anchor";
-        //$ckSettings["disallowedContent"] = "img script div input [class] [on*] [style]";
-        $ckSettings["height"] = "50";
-        $ckSettings["toolbar"] = "Basic";
-        $ckSettings["toolbarLocation"] = "bottom";
-        return $ckSettings;
     }
 }
 cf::$config = helper::config("cf");
