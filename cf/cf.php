@@ -52,7 +52,7 @@ class cf extends common {
 
         $class = isset($callers[$index], $callers[$index]["class"]) ? $callers[$index]["class"]."::" : null;
         
-        $labels = array("end"=>"End", "vdd"=>"End dump", "vd"=>"Dump");
+        $labels = array("end"=>"End", "vdd"=>"End dump", "vd"=>"-Dump");
         $label = function ($func) use ($labels) { return ((in_array($labels, array_keys($labels))) ? $labels[$func] : $func); };
         
         $info = $label($function=$callers[1]["function"]) ." triggered from: " . $class . $function . "()";
