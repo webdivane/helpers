@@ -4,7 +4,7 @@ A short list of ***[php](http://php.net/ "PHP.net")*** helper classes
 ## 
 
 
-* [GitHub URL](https://github.com/webdivane/php-helpers)
+* [GitHub URL](https://github.com/webdivane/php-helpers#helpers)
 * Version 1.1.2 (beta)
 * Public since: 2016-06-25
  
