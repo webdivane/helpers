@@ -5,7 +5,7 @@ A short list of ***[php](http://php.net/ "PHP.net")*** helper classes
 
 
 * [GitHub URL](https://github.com/webdivane/php-helpers#helpers)
-* Version 1.1.2 (beta)
+* Version 1.1.2 (alpha)
 * Public since: 2016-06-25
  
 **Note:** The *library is under constant development*. Many of its parts ***will*** be updated in the future.

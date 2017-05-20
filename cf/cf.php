@@ -70,7 +70,7 @@ class cf extends common {
                     break;
             }
         } else {
-            $info = "<em>debug_backtrace() not have data under requested index.</em>";
+            $info = "<em>debug_backtrace()</em> have no data under the requested index.";
         }
         echo "<p style=\"font-family:Tahoma,'sans-serif'; padding-top:5px; font-size:12px; color:#888; border-top:1px dashed #888; margin:0px;\">".$info."</p>";
     }
