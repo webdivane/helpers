@@ -49,24 +49,28 @@ class cf extends common {
      *  @param integer $index */
     final static function backtrace($index=2){
         $callers=debug_backtrace();
-
-        $class = isset($callers[$index], $callers[$index]["class"]) ? $callers[$index]["class"]."::" : null;
-        
-        $labels = array("end"=>"End", "vdd"=>"End dump", "vd"=>"-Dump");
-        $label = function ($func) use ($labels) { return ((in_array($labels, array_keys($labels))) ? $labels[$func] : $func); };
-        
-        $info = $label($function=$callers[1]["function"]) ." triggered from: " . $class . $function . "()";
-
-        switch (self::$config["dumps-protect-fileinfo"]) {
-            case 'path-only': // class-filename.php (line: 123).
-                $info.= basename($callers[$index]["file"]) . " (line: " . $callers[$index]["line"] . ").";
-                break;
-            case null: // .full-pah-to/class-filename.php (line: 123).
-                $info.= $callers[$index]["file"] . " (line: " . $callers[$index]["line"] . ").";
-                break;
-            default:
-                $info .= ".";
-                break;
+        if(array_key_exists($index, $callers)){
+            
+            $class = isset($callers[$index], $callers[$index]["class"]) ? $callers[$index]["class"]."::" : null;
+            
+            $labels = array("end"=>"End", "vdd"=>"End dump", "vd"=>"-Dump");
+            $label = function ($func) use ($labels) { return ((in_array($labels, array_keys($labels))) ? $labels[$func] : $func); };
+            
+            $info = $label($function=$callers[1]["function"]) ." triggered from: " . $class . $function . "()";
+    
+            switch (self::$config["dumps-protect-fileinfo"]) {
+                case 'path-only': // class-filename.php (line: 123).
+                    $info.= basename($callers[$index]["file"]) . " (line: " . $callers[$index]["line"] . ").";
+                    break;
+                case null: // .full-pah-to/class-filename.php (line: 123).
+                    $info.= $callers[$index]["file"] . " (line: " . $callers[$index]["line"] . ").";
+                    break;
+                default:
+                    $info .= ".";
+                    break;
+            }
+        } else {
+            $info = "<em>debug_backtrace() not have data under requested index.</em>";
         }
         echo "<p style=\"font-family:Tahoma,'sans-serif'; padding-top:5px; font-size:12px; color:#888; border-top:1px dashed #888; margin:0px;\">".$info."</p>";
     }
