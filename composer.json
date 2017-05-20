@@ -18,7 +18,8 @@
     "autoload": {
         "psr-0": {
                     "helper": "",
-                    "cf":"cf"
+                    "cf":"cf",
+                    "msg":"msg"
                  }
     }
 }
