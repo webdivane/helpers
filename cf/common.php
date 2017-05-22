@@ -104,10 +104,9 @@ class common {
 
 
     /** Control Output Buffering: Start or Get current buffer contents and delete current output buffer
-     * @param string $getBufferContent - if skipped or passed with "Nooo" starts buferring els return buffer in the passed var */
-    static function buffer(&$getBufferContent="Nooo"){
-        if($getBufferContent==="Nooo"){ ob_start();
-        } else {                        $getBufferContent = ob_get_clean(); }
+     * @param string $get - if skipped or passed null starts buferring else return the buffer content */
+    static function buffer(&$get=null){
+        return (isset($get) ? ob_get_clean() : ob_start());
     }
 
 
