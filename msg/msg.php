@@ -1,5 +1,6 @@
 <?php
-/** The message PHP helper*/
+/** The message PHP helper
+ *  @todo Discover bootstrap - it now can use .fade .in so the cf::appendToHeadTag can be omitted */
 class msg 
 {
     /** @const string MSG_SESSION_KEY Default $_SESSION key to be used */
@@ -22,7 +23,7 @@ class msg
      *      positins.*/
     final static function set($msg="", $context="plain", $customSessionKey=null){
         self::prepare(true);
-        $key = (isset($customSessionKey)? $customSessionKey : self::MSG_SESSION_KEY);
+        $key = (isset($customSessionKey)? $customSessionKey : helper::$config["msg"]["session key"]);
         $msgs = &$_SESSION[$key];
         if(!is_array($msgs)){
             $msgs = array();
@@ -38,7 +39,7 @@ class msg
      * variable name. For the cases where separate messages needed (to appear on diferent positins).*/
     final static function get($customSessionKey=null){
         self::prepare(true);
-        $key = (isset($customSessionKey)? $customSessionKey : self::MSG_SESSION_KEY);
+        $key = (isset($customSessionKey)? $customSessionKey : helper::$config["msg"]["session key"]);
         $msgs = isset($_SESSION[$key]) ? $_SESSION[$key] : array();
         foreach ($msgs as $msg){
             self::Html($msg);
@@ -47,29 +48,32 @@ class msg
     }
     
     /** Just shows a message
-     * @param array|string $msg  - is is_array($msg) the $type is ignored as type is expected to be set in the array inside
-     * @param string $context = "plain" */
-    final static function put($msg, $context="plain"){
+     * @param string $msg  - the message contenr
+     * @param string $context
+     * @param bool $dismissable*/
+    final static function put($msg, $context="plain", $dismissable=true){
         self::prepare(true);
-        $msgs = is_array($msg) ? $msg : array(array("value"=>$msg, "context"=>$context));
-        foreach ($msgs as $msg){
-            self::Html($msg);
-        }
+        self::Html(array("value"=>$msg, "context"=>$context, "dismissible"=>boolval($dismissable)));
     }
 	
     private static function Html($msg){
-        if(!(bool)self::USE_BOOTSTRAP_CSS){
-            form::openP(array("class"=>"app-msg ".$msg["context"]));
-                form::html($msg["value"]);
-                form::link("javascript:void(0);","close",array("class"=>"material-icons","onclick"=>"var _this = this; setTimeout(function(){_this.parentNode.style.display = 'none';},400); this.parentNode.setAttribute('class',(this.parentNode.getAttribute('class')+' msg-fadeout'));"));
-            form::closeP();
-        } else {
+        $dismissable = (bool)(!array_key_exists("dismissible", $msg) || $msg["dismissible"]===true);
+        if(helper::$config["use bootstrap"]===true){
             form::openP(array("class"=>"alert alert-dismissible ".self::$contextMapToBootstrapClass[$msg["context"]]));
-                form::openButton(array("type"=>"button", "class"=>"close", "data-dismiss"=>"alert", "aria-label"=>"Close"));
-                    form::span("&times;",array("aria-hidden"=>"true"));
-                form::closeButton();
+                if($dismissable){
+                    form::openButton(array("type"=>"button", "class"=>"close", "data-dismiss"=>"alert", "aria-label"=>"Close"));
+                        form::span("&times;",array("aria-hidden"=>"true"));
+                    form::closeButton();
+                }
                 form::html($msg["value"]);
                 form::link("javascript:void(0);","&nbsp;",array("onclick"=>"var _this = this; setTimeout(function(){_this.parentNode.style.display = 'none';},400); this.parentNode.setAttribute('class',(this.parentNode.getAttribute('class')+' msg-fadeout'));"));
+            form::closeP();
+        } else {
+            form::openP(array("class"=>"app-msg ".$msg["context"]));
+                form::html($msg["value"]);
+                if($dismissable){
+                    form::link("javascript:void(0);","close",array("class"=>"material-icons","onclick"=>"var _this = this; setTimeout(function(){_this.parentNode.style.display = 'none';},400); this.parentNode.setAttribute('class',(this.parentNode.getAttribute('class')+' msg-fadeout'));"));
+                }
             form::closeP();
         }
     }
