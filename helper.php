@@ -2,8 +2,8 @@
 /** The helper (base) class */
 class helper {
 
-    public static $pageExtension, $preparePassed = array();
-    private static $config=null, $prepared = array();
+    public static $pageExtension, $preparePassed=array(), $config=null;
+    private static $prepared = array();
     const HELPERS_DIR = __DIR__;
     const CONFIG_DIR = "config";
     const DS = DIRECTORY_SEPARATOR;
@@ -37,7 +37,7 @@ class helper {
                         exit("Missing ".$helper." config data in the helpers/config/config.json")
                     );
         } else {
-            $path = self::HELPERS_DIR .self::DS. self::CONFIG_DIR .DS;
+            $path = self::HELPERS_DIR . self::DS . self::CONFIG_DIR . self::DS;
             if(is_readable(($file=$path.($fn="config.json")))){
                 $config = json_decode(file_get_contents($file), true);
                 if (json_last_error() !== JSON_ERROR_NONE) {
