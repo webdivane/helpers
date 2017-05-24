@@ -3,11 +3,6 @@
  *  @todo Discover bootstrap - it now can use .fade .in so the cf::appendToHeadTag can be omitted */
 class msg 
 {
-    /** @const string MSG_SESSION_KEY Default $_SESSION key to be used */
-    const MSG_SESSION_KEY = "web-app-msgs";
-    /** @const boolean Do the site use bootstrap CSS ({@link https://getbootstrap.com})*/
-    const USE_BOOTSTRAP_CSS = true;
-    
     /**@var array Context "map" to dedicated Bootstrap class attribute*/
     private static $contextMapToBootstrapClass = array(
         "plain"=>"alert-info", "success"=>"alert-success",
