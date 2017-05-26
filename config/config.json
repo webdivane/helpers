@@ -3,7 +3,7 @@
         "session key": "msg-helper-messages"
     },
     "cf" : {
-        "dumps-protect-fileinfo": false
+        "backtrace omit path": false
     },
     "use bootstrap": false
 }

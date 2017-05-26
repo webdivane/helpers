@@ -51,35 +51,18 @@ class cf extends common {
         $callers=debug_backtrace();
         if(array_key_exists($index, $callers)){
             
-            $labels = array("end"=>"End", "vdd"=>"End dump", "vd"=>"-Dump");
+            $labels = array("end"=>"End", "vdd"=>"End dump", "vd"=>"Dump");
             
-            $class = function ($row) {
-                return (isset($row) && array_key_exists("class",$row) ? ($row["class"]."::") : null); 
+            $caller = function($row, $labels) use ($labels) {
+                $c = (isset($row) && array_key_exists("class",$row) ? $row["class"] : null); // ClassName -or- null
+                $c.= isset($c) ? $row["type"] : null; // (:: / ->) -or- null
+                $c.= ((in_array($labels, array_keys($labels))) ? $labels[$func] : ($func."()"));
             };
             
-            $label = function ($func) use ($labels) { 
-                return ((in_array($labels, array_keys($labels))) ? $labels[$func] : $func); 
-            };
+            $call = $caller($callers[$index]) . ", triggered from: " . $caller($callers[($index+1)]); // current(), .. parent()
+            $path = self::$config["backtrace omit path"]===true  ? basename($callers[$index]["file"]) : $callers[$index]["file"];
+            $info = $call . $path . " (line: " . $callers[$index]["line"] . ").";
 
-            $currnetF = $label($callers[$index]["function"]);
-            $currnetC = $class($callers[$index]);
-            
-            $parrentF = $label($callers[($index+1)]["function"]);
-            $parrentC = $class($callers[($index+1)]);
-
-            $info = $class($callers[$index]) . $label($callers[$index]["function"]) ."(), triggered from: " . (string)$class($callers[($index+1)]) . (string)$label($callers[($index+1)]["function"]) . "()";
-
-            switch (self::$config["dumps-protect-fileinfo"]) {
-                case 'path-only': // class-filename.php (line: 123).
-                    $info.= "<br />".basename($callers[$index]["file"]) . " (line: " . $callers[$index]["line"] . ").";
-                    break;
-                case null: // .full-pah-to/class-filename.php (line: 123).
-                    $info.= "<br />". $callers[$index]["file"] . " (line: " . $callers[$index]["line"] . ").";
-                    break;
-                default:
-                    $info .= ".";
-                    break;
-            }
         } else {
             $info = "<em>debug_backtrace() not have data under requested index.</em>";
         }
