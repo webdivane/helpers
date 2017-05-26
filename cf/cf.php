@@ -54,14 +54,15 @@ class cf extends common {
             $labels = array("end"=>"End", "vdd"=>"End dump", "vd"=>"Dump");
             
             $caller = function($row, $labels) use ($labels) {
-                $c = (isset($row) && array_key_exists("class",$row) ? $row["class"] : null); // ClassName -or- null
-                $c.= isset($c) ? $row["type"] : null; // (:: / ->) -or- null
-                $c.= ((in_array($labels, array_keys($labels))) ? $labels[$func] : ($func."()"));
+                $c = (isset($row) && array_key_exists("class",$row) ? $row["class"] : ""); // ClassName -or- ""
+                $c.= empty($c) ? "" : $row["type"]; // "" -or- (:: / ->)
+                $c.= ((in_array(($func=$row["function"]), array_keys($labels))) ? $labels[$func] : ($func."()")); //F unc -or- $labels[$func]
+                return $c;
             };
             
             $call = ($caller($callers[$index]) . ", triggered from: " . $caller($callers[($index+1)])); // current(), .. parent()
             $path = self::$config["backtrace omit path"]===true  ? basename($callers[$index]["file"]) : $callers[$index]["file"];
-            $info = ($call . $path . " (line: " . $callers[$index]["line"] . ").");
+            $info = ($call . " " . $path . " (line: " . $callers[$index]["line"] . ").");
 
         } else {
             $info = "<em>debug_backtrace() not have data under requested index.</em>";
