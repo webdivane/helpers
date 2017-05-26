@@ -62,7 +62,7 @@ class cf extends common {
             
             $call = ($caller($callers[$index]) . ", triggered from: " . $caller($callers[($index+1)])); // current(), .. parent()
             $path = self::$config["backtrace omit path"]===true  ? basename($callers[$index]["file"]) : $callers[$index]["file"];
-            $info = ("<nowrap>".$call . "</nowrap> <nowrap>" . $path . " (line: " . $callers[$index]["line"] . ").</nowrap>");
+            $info = ("<nowrap>".$call . ",</nowrap> <nowrap>" . $path . " (line: " . $callers[$index]["line"] . ")</nowrap>");
 
         } else {
             $info = "<em>debug_backtrace() not have data under requested index.</em>";
