@@ -59,9 +59,9 @@ class cf extends common {
                 $c.= ((in_array($labels, array_keys($labels))) ? $labels[$func] : ($func."()"));
             };
             
-            $call = $caller($callers[$index]) . ", triggered from: " . $caller($callers[($index+1)]); // current(), .. parent()
+            $call = ($caller($callers[$index]) . ", triggered from: " . $caller($callers[($index+1)])); // current(), .. parent()
             $path = self::$config["backtrace omit path"]===true  ? basename($callers[$index]["file"]) : $callers[$index]["file"];
-            $info = $call . $path . " (line: " . $callers[$index]["line"] . ").";
+            $info = ($call . $path . " (line: " . $callers[$index]["line"] . ").");
 
         } else {
             $info = "<em>debug_backtrace() not have data under requested index.</em>";
