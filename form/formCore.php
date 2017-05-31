@@ -106,14 +106,7 @@ class formCore {
         }
     }
     
-    /*static function loopCall($method, $args){
-        if(count($args)>0){
-            foreach($args as $arg){
-                call_user_func_array(array("form", $method), $arg);
-            }
-        }
-    }*/
-    
+
     /** Description: Writes <a href="$hrefAttribute" {$args}>$innerHtml</a>
      *  @param str   $hrefAttribute
      *  @param str   $innerHtml
@@ -130,11 +123,11 @@ class formCore {
         self::codeStyleSkip(false);
     }
 
-    /** Description: Writes <tag {$args}>
-     *  @param str   $innerHtml
-     *  @param str $tag
-     *  @param arr $args - tag attributes */
-    static function tag($innerHtml = "", $tag = "", $args = array()) {
+    /** Writes <$tag {$args}>$innerHTML</$tag> -or- <$tag {$args}/>
+     *  @param string $innerHtml
+     *  @param string $tag HTML tag to write
+     *  @param array $args the tag attributes */
+    static function tag($innerHtml, $tag, $args = array()) {
         if (self::$ofsetIndentsCount > 0) {
             $innerHtml = str_replace("\n", "\n".self::codeOfset(self::$ofsetIndentsCount), $innerHtml);
         }
@@ -145,9 +138,9 @@ class formCore {
         }
     }
 
-    /** Description: Writes <tag {$args}>
-     *  @param str $tag
-     *  @param arr $args - tag attributes */
+    /** Writes <$tag {$args}>
+     *  @param string $tag
+     *  @param array $args - tag attributes */
     static function openTag($tag = "", $args = array()) {
         if ($tag == "a") {
             $hrefAttribute = empty($hrefAttribute) ? "javascript:void(0);" : $hrefAttribute;
